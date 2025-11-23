@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - CS Student</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img id="chickenImageElement" style="display: none;" src="assets/hen.png" alt="Chicken Icon">
+    <img id="obs1Image" style="display: none;" src="assets/obs1.png" alt="Obstacle 1">
+    <img id="obs2Image" style="display: none;" src="assets/obs2.png" alt="Obstacle 2">
+    <img id="obs3Image" style="display: none;" src="assets/obs3.png" alt="Obstacle 3">
+    <img id="obs4Image" style="display: none;" src="assets/obs4.png" alt="Obstacle 4">
+    <img id="crashImage" style="display: none;" src="assets/crash.png" alt="Crash Icon">
+
+    <div style="display:none;">
+        <img id="project1_img1" src="assets/project1/image1.png">
+        <img id="project1_img2" src="assets/project1/image2.png">
+        <img id="project2_img1" src="assets/project2/image1.png">
+        <img id="project3_img1" src="assets/project3/image1.png">
+        <img id="project3_img2" src="assets/project3/image2.png">
+    </div>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#skills">SKILLS</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-container">
+            <div class="hero-text-content">
+                <div class="badge fade-in-up">Available for Hire</div>
+                
+                <div class="reveal-holder">
+                    <h1>Hello, I'm <span class="highlight-name">YOUR NAME</span></h1>
+                    <div class="curtain-reveal"></div>
+                </div>
+                
+                <h2 class="dynamic-role fade-in-up delay-1">I am a <span class="typing-text">Full Stack Developer</span><span class="cursor">|</span></h2>
+                <p class="hero-description fade-in-up delay-2">
+                    Computer Science Student & Innovator. I build accessible, pixel-perfect, 
+                    and performant web experiences that solve real-world problems.
+                </p>
+                
+                <div class="hero-stats fade-in-up delay-3">
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Major Projects</span>
+                    </div>
+                    <div class="stat-separator"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">7+</span>
+                        <span class="stat-label">Minor Projects</span>
+                    </div>
+                    <div class="stat-separator"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">MERN Stack</span>
+                        <span class="stat-label">Expertise</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual fade-in-left">
+                <div class="wireframe-globe">
+                    <div class="globe-ring"></div>
+                    <div class="globe-ring"></div>
+                    <div class="globe-ring"></div>
+                    <div class="globe-ring"></div>
+                    <div class="globe-ring"></div>
+                    <div class="globe-ring"></div>
+                    <div class="globe-ring"></div>
+                </div>
+
+                <div class="image-wrapper">
+                    <img src="assets/head.png" alt="Profile" class="hero-img">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="blur-hidden">
+        <h2 class="section-title">ABOUT</h2>
+        <div class="about-main-content">
+            <div class="about-text-container">
+                <p>I'm a passionate Computer Science student in my final year of B.Tech, specializing in software development and modern technologies.</p>
+                <p>With a strong foundation in programming and problem-solving, I'm eager to apply my skills to real-world challenges and contribute to innovative projects.</p>
+                
+                <div id="openGameTrigger" class="game-trigger">
+                    <p>CLICK HERE</p>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#00AEEF">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="about-image-container">
+                <img src="assets/head.png" alt="Profile Photo">
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="blur-hidden">
+        <h2 class="section-title">SKILLS</h2>
+        <div class="skills-container">
+            <div class="skill-item">
+                <img src="assets/programming_icon.png" alt="Programming" class="skill-icon">
+                <div class="skill-name">PROGRAMMING (C++, Python, Java)</div>
+            </div>
+            <div class="skill-item">
+                <img src="assets/webdev_icon.png" alt="Web Dev" class="skill-icon">
+                <div class="skill-name">WEB DEVELOPMENT (React, Node.js, MERN)</div>
+            </div>
+            <div class="skill-item">
+                <img src="assets/db_icon.png" alt="Database" class="skill-icon">
+                <div class="skill-name">DATABASE (SQL, MongoDB)</div>
+            </div>
+            <div class="skill-item">
+                <img src="assets/dsa_icon.png" alt="DSA" class="skill-icon">
+                <div class="skill-name">DATA STRUCTURES (DSA)</div>
+            </div>
+            <div class="skill-item">
+                <img src="assets/ml_icon.png" alt="ML" class="skill-icon">
+                <div class="skill-name">MACHINE LEARNING (TensorFlow)</div>
+            </div>
+            <div class="skill-item">
+                <img src="assets/tools_icon.png" alt="Tools" class="skill-icon">
+                <div class="skill-name">TOOLS (Git, Docker, Cloud)</div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="blur-hidden">
+        <h2 class="section-title">PROJECTS</h2>
+        <div class="projects-list">
+            <div class="project-item tilt-card" data-project-id="1">
+                <div class="project-thumbnail-container">
+                    <img src="assets/project1/thumbnail.jpg" alt="Project 1" class="project-thumbnail">
+                </div>
+                <div class="project-info">
+                    <div class="project-name">Decentralized Food Traceability</div>
+                    <div class="project-tech">Tech: Solidity, Web3.js, React</div>
+                </div>
+            </div>
+            <div class="project-item tilt-card" data-project-id="2">
+                <div class="project-thumbnail-container">
+                    <img src="assets/project2/thumbnail.jpg" alt="Project 2" class="project-thumbnail">
+                </div>
+                <div class="project-info">
+                    <div class="project-name">Real-time Chat App</div>
+                    <div class="project-tech">Tech: MERN Stack, Socket.IO</div>
+                </div>
+            </div>
+            <div class="project-item tilt-card" data-project-id="3">
+                <div class="project-thumbnail-container">
+                    <img src="assets/project3/thumbnail.jpg" alt="Project 3" class="project-thumbnail">
+                </div>
+                <div class="project-info">
+                    <div class="project-name">Image Classification CNN</div>
+                    <div class="project-tech">Tech: Python, TensorFlow, Keras</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="blur-hidden">
+        <h2 class="section-title">CONTACT</h2>
+        <div class="contact-content">
+            <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+            <div class="contact-links">
+                <a href="mailto:your.email@example.com" class="contact-link">EMAIL</a>
+                <a href="https://linkedin.com" target="_blank" class="contact-link">LINKEDIN</a>
+                <a href="https://github.com" target="_blank" class="contact-link">GITHUB</a>
+            </div>
+        </div>
+    </section>
+    
+    <div id="gameOverlay" class="hidden">
+        <button id="closeGameButton" title="Close Game">X</button>
+        <div id="gameContainer">
+            <canvas id="gameCanvas" width="1200" height="300"></canvas>
+            <div id="preGameOverlay">
+                <div class="chicken-icon-placeholder"></div> 
+                <button id="startGameButton" title="Start Game">
+                    <svg viewBox="0 0 24 24" fill="#000" width="30" height="30"><path d="M6 3l12 9-12 9V3z"/></svg>
+                </button>
+                <p id="clickHereText">CLICK HERE / PRESS SPACE</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="projectModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="closeModalButton" class="modal-close-btn">&times;</button>
+            <h3 id="modalProjectName"></h3>
+            <p id="modalProjectTech" class="project-tech"></p>
+            <div class="modal-gallery">
+                <div class="gallery-image-container">
+                    <img id="modalImage" src="" alt="Project Image">
+                    <button id="prevImage" class="gallery-nav left-nav"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg></button>
+                    <button id="nextImage" class="gallery-nav right-nav"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></button>
+                </div>
+            </div>
+            <div class="modal-description-container">
+                <p id="modalProjectDesc"></p>
+                <a href="#" id="modalProjectLink" target="_blank" class="neon-button project-link-button">View Live Project</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 YOUR NAME. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
