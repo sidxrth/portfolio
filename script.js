@@ -23,7 +23,7 @@ const obstacleImages = [
 ];
 
 let dino, obstacles, score, gameSpeed, animationFrameId;
-let spawnTimer = 0; // Added for better spawn control
+let spawnTimer = 0; 
 let gameRunning = false;
 
 const GROUND_LINE_OFFSET = 20;
@@ -51,31 +51,32 @@ const modalProjectLink = document.getElementById('modalProjectLink');
 let currentProjectData = null;
 let currentImageIndex = 0;
 
+// --- UPDATED PROJECTS DATA FROM RESUME ---
 const projectsData = {
     '1': {
-        name: 'Decentralized Food Traceability System',
-        desc: 'A blockchain-based application to ensure food transparency from farm to table. Implements smart contracts for supply chain transactions. This project demonstrates expertise in cutting-edge distributed ledger technology and full-stack development.',
-        tech: 'Tech: Solidity, Web3.js, React, Node.js, MongoDB',
-        link: 'https://github.com/your-repo/food-traceability', 
+        name: 'AI-Assisted Proctored Exam System',
+        desc: 'Built two Electron-based desktop applications (student client + teacher app) with real-time Firebase synchronization. Integrated AI-driven continuous proctoring using a face detection model to flag malpractice, reducing manual workload by ~90%. Features automated grading with Gemini AI and a secure SQLite3-based authentication system.',
+        tech: 'Tech: Electron, Gemini AI, Firebase, SQLite3',
+        link: 'https://github.com/sidxrth', 
         images: [
             { id: 'project1_img1', src: 'assets/project1/image1.png' },
             { id: 'project1_img2', src: 'assets/project1/image2.png' }
         ]
     },
     '2': {
-        name: 'Real-time Chat Application',
-        desc: 'A full-stack application providing instant messaging with user authentication and group chat features. Built for high concurrency using WebSockets.',
-        tech: 'Tech: MERN Stack, Socket.IO, JWT Authentication',
-        link: 'https://github.com/your-repo/chat-app', 
+        name: 'Smart Waste Management System',
+        desc: 'A Flutter frontend integrated with Firestore for role-based access, real-time sync, and auto-pricing. Implemented GPS-based scheduling and reward computation, significantly improving pickup accuracy and user submission efficiency.',
+        tech: 'Tech: Flutter, Firebase',
+        link: 'https://github.com/sidxrth', 
         images: [
             { id: 'project2_img1', src: 'assets/project2/image1.png' }
         ]
     },
     '3': {
-        name: 'Image Classification Model',
-        desc: 'Developed a Convolutional Neural Network (CNN) to classify images with high accuracy using a large public dataset. Focus on model optimization and deployment techniques.',
-        tech: 'Tech: Python, TensorFlow/Keras, Pandas, Scikit-learn',
-        link: 'https://github.com/your-repo/cnn-classification', 
+        name: 'Cloud-Hosted Blog Management Platform',
+        desc: 'Built a Node.js backend with AWS RDS and deployed it on EC2 with ELB, S3, and VPC. Achieved 99.9% uptime using a load-balanced architecture with multi-AZ RDS, ensuring a reliable and scalable cloud setup.',
+        tech: 'Tech: AWS (EC2, RDS, ELB, S3), Node.js',
+        link: 'https://github.com/sidxrth', 
         images: [
             { id: 'project3_img1', src: 'assets/project3/image1.png' },
             { id: 'project3_img2', src: 'assets/project3/image2.png' }
@@ -132,34 +133,28 @@ function showPrevImage() {
 
 if (projectItems) {
     projectItems.forEach(item => {
-        // Modal Click
         item.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
             const projectId = item.getAttribute('data-project-id');
             openProjectModal(projectId);
         });
         
-        // --- 3D TILT EFFECT LOGIC ---
         item.addEventListener('mousemove', (e) => {
             const rect = item.getBoundingClientRect();
             const x = e.clientX - rect.left; 
             const y = e.clientY - rect.top;
-            
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             const rotateX = ((y - centerY) / centerY) * -10; 
             const rotateY = ((x - centerX) / centerX) * 10;
-
             item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
         });
 
         item.addEventListener('mouseleave', () => {
-            // Check if it should be hidden or shown by scroll, but reset tilt
-            // We use 'show-item' class to determine base state
             if (item.classList.contains('show-item')) {
                  item.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
             } else {
-                 item.style.transform = ''; // Let CSS handle the hidden state
+                 item.style.transform = ''; 
             }
         });
     });
@@ -186,8 +181,6 @@ document.addEventListener('keydown', (e) => {
 // =========================================
 // 3. GAME LOGIC (OPTIMIZED & DEBUGGED)
 // =========================================
-
-// Event Listeners
 if (startButton) startButton.addEventListener('click', startGame);
 if (canvas) canvas.addEventListener('click', jump);
 if (openGameTrigger) openGameTrigger.addEventListener('click', openGameOverlay);
@@ -196,7 +189,6 @@ if (preGameOverlay) preGameOverlay.addEventListener('click', (e) => {
     if (!gameRunning) startGame(); 
 });
 
-// Spacebar Control
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && gameOverlay && !gameOverlay.classList.contains('hidden')) {
         e.preventDefault(); 
@@ -228,7 +220,7 @@ function resizeCanvas() {
     if (gameContainer && canvas) { 
         canvas.width = gameContainer.offsetWidth; 
         canvas.height = CANVAS_HEIGHT; 
-        if (dino) dino.y = CANVAS_HEIGHT - GROUND_LINE_OFFSET - dino.height; // Keep dino on ground
+        if (dino) dino.y = CANVAS_HEIGHT - GROUND_LINE_OFFSET - dino.height; 
     }
 }
 
@@ -248,25 +240,22 @@ function startGame() {
 }
 
 function resetGame() {
-    // PHYSICS TWEAKS: 
-    // Increased gravity slightly for "snappier" jumps.
-    // Adjusted jumpPower to match new gravity.
     dino = { 
         x: 50, 
         y: CANVAS_HEIGHT - GROUND_LINE_OFFSET - CHICKEN_SIZE, 
         width: CHICKEN_SIZE, 
         height: CHICKEN_SIZE, 
         dy: 0, 
-        jumpPower: -12.5,  // Slightly reduced for control
-        gravity: 0.7,      // Slightly heavier for faster fall
+        jumpPower: -12.5,  
+        gravity: 0.7,      
         isJumping: false, 
         color: '#e0e0e0' 
     };
     
     obstacles = []; 
     score = 0; 
-    gameSpeed = 5.0; // Starting speed
-    spawnTimer = 0;  // Reset spawn timer
+    gameSpeed = 5.0; 
+    spawnTimer = 0;  
     
     if (animationFrameId) cancelAnimationFrame(animationFrameId);
 }
@@ -283,11 +272,9 @@ function createObstacle() {
     const randomIndex = Math.floor(Math.random() * obstacleImages.length);
     const selectedImage = obstacleImages[randomIndex];
     
-    // Vary sizes based on obstacle type
     let obsWidth = OBSTACLE_BASE_WIDTH; 
     let obsHeight = OBSTACLE_BASE_HEIGHT;
     
-    // Obs index 2 (likely tall) or 3 (likely wide) adjustments
     if (randomIndex === 2) obsHeight = OBSTACLE_BASE_HEIGHT * 1.4; 
     else if (randomIndex === 3) obsWidth = OBSTACLE_BASE_WIDTH * 1.3; 
     
@@ -307,14 +294,11 @@ function drawDino(isCrashed = false) {
     if (chickenImageElement && chickenImageElement.complete) {
         ctx.save();
         if (isCrashed) {
-            // Draw crash icon
             if (crashImageElement && crashImageElement.complete) {
                 ctx.drawImage(crashImageElement, dino.x + dino.width/2 - 15, dino.y - 30, 30, 30);
             }
-            // Draw chicken normally (no flip needed if crashing usually)
             ctx.drawImage(chickenImageElement, dino.x, dino.y, dino.width, dino.height);
         } else {
-            // Flip for running effect facing right
             ctx.translate(dino.x + dino.width, dino.y); 
             ctx.scale(-1, 1); 
             ctx.drawImage(chickenImageElement, 0, 0, dino.width, dino.height); 
@@ -349,7 +333,7 @@ function drawGround() {
     ctx.beginPath(); 
     ctx.moveTo(0, CANVAS_HEIGHT - GROUND_LINE_OFFSET); 
     ctx.lineTo(canvas.width, CANVAS_HEIGHT - GROUND_LINE_OFFSET); 
-    ctx.strokeStyle = '#555'; // Darker line for style
+    ctx.strokeStyle = '#555'; 
     ctx.lineWidth = 2; 
     ctx.stroke(); 
     ctx.closePath(); 
@@ -360,8 +344,6 @@ function update() {
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // 1. DIFFICULTY PROGRESSION
-    // Speed increases slowly up to a cap of 12
     if (gameSpeed < 12) {
         gameSpeed += 0.0015;
     }
@@ -369,7 +351,6 @@ function update() {
     drawGround(); 
     drawScore();
     
-    // 2. DINO PHYSICS
     dino.dy += dino.gravity; 
     dino.y += dino.dy;
     
@@ -381,29 +362,19 @@ function update() {
     }
     drawDino(false);
 
-    // 3. SMART SPAWNING LOGIC
-    // spawnTimer counts frames. We ensure a minimum gap based on speed.
     spawnTimer++;
+    let minGapFrames = 60; 
     
-    // Min frames increases as speed increases to ensure jumpable distance? 
-    // Actually, min frames should decrease or stay proportional.
-    // Let's use random chance ONLY if we have passed a minimum safety gap.
-    let minGapFrames = 60; // minimum frames between obstacles (approx 1 sec at start)
-    
-    // If randomized chance hits AND we passed the safety gap
     if (spawnTimer > minGapFrames && Math.random() < 0.005 * gameSpeed) {
         createObstacle();
-        spawnTimer = 0; // Reset timer
+        spawnTimer = 0; 
     }
 
-    // 4. OBSTACLE MANAGEMENT
     for (let i = obstacles.length - 1; i >= 0; i--) {
         let obs = obstacles[i]; 
         obs.x -= gameSpeed; 
         drawObstacle(obs);
         
-        // COLLISION DETECTION (With Padding for Fairness)
-        // We shrink the dino's hitbox by 10px on x and 5px on y
         const hitboxPaddingX = 8;
         const hitboxPaddingY = 5;
         
@@ -413,18 +384,16 @@ function update() {
             dino.y + hitboxPaddingY < obs.y + obs.height && 
             dino.y + dino.height > obs.y + hitboxPaddingY
         ) {
-            // GAME OVER
             handleGameOver();
             return; 
         }
 
-        // MEMORY LEAK FIX: Remove off-screen obstacles
         if (obs.x + obs.width < 0) {
             obstacles.splice(i, 1);
         }
     }
     
-    score += 0.1; // Slower score increment (looks better)
+    score += 0.1; 
     animationFrameId = requestAnimationFrame(update);
 }
 
@@ -436,7 +405,7 @@ function handleGameOver() {
     drawGround(); 
     drawScore(); 
     obstacles.forEach(drawObstacle); 
-    drawDino(true); // Draw crashed dino
+    drawDino(true); 
     
     ctx.fillStyle = '#ff4444'; 
     ctx.font = 'bold 40px Poppins'; 
@@ -457,7 +426,8 @@ function handleGameOver() {
 // =========================================
 // 4. TYPING EFFECT
 // =========================================
-const roles = ["Full Stack Developer", "CS Student", "Problem Solver"];
+// --- UPDATED ROLES FROM RESUME ---
+const roles = ["Software Engineer", "Full Stack Developer", "Cloud Architect", "AI Engineer"];
 let roleIndex = 0; let charIndex = 0; let isDeleting = false;
 const typingSpeed = 100; const erasingSpeed = 50; const delayBetweenRoles = 2000;
 const typingTextElement = document.querySelector('.typing-text');
@@ -476,23 +446,21 @@ document.addEventListener('DOMContentLoaded', typeEffect);
 
 
 // =========================================
-// 5. REPEATABLE SCROLL OBSERVER (UPDATED)
+// 5. REPEATABLE SCROLL OBSERVER
 // =========================================
 const observerOptions = { 
     root: null, 
-    threshold: 0.15, // Trigger when 15% visible
+    threshold: 0.15, 
     rootMargin: "0px" 
 };
 
 const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
-        // TOGGLE LOGIC: Add class if visible, remove if not.
         if (entry.isIntersecting) {
             if (entry.target.classList.contains('blur-hidden')) entry.target.classList.add('show-section');
             if (entry.target.classList.contains('skill-item')) entry.target.classList.add('show-item');
             if (entry.target.classList.contains('project-item')) entry.target.classList.add('show-item');
         } else {
-            // Remove the class so it can animate in again next time
             if (entry.target.classList.contains('blur-hidden')) entry.target.classList.remove('show-section');
             if (entry.target.classList.contains('skill-item')) entry.target.classList.remove('show-item');
             if (entry.target.classList.contains('project-item')) entry.target.classList.remove('show-item');
@@ -506,3 +474,76 @@ const skillItems = document.querySelectorAll('.skill-item');
 hiddenSections.forEach(el => observer.observe(el));
 skillItems.forEach(el => observer.observe(el));
 if (projectItems) projectItems.forEach(el => observer.observe(el));
+
+
+// =========================================
+// 6. ANALOG CLOCK & QUOTES (New)
+// =========================================
+function initClockAndQuotes() {
+    const clockFace = document.getElementById('clockFace');
+    const hourHand = document.querySelector('.hour-hand');
+    const minHand = document.querySelector('.min-hand');
+    const secondHand = document.querySelector('.second-hand');
+    const quoteElement = document.getElementById('timeQuote');
+
+    if (!clockFace) return;
+
+    // Generate Clock Ticks
+    for (let i = 0; i < 60; i++) {
+        const mark = document.createElement('div');
+        mark.classList.add('clock-mark');
+        if (i % 5 === 0) { mark.classList.add('major'); }
+        // Radius 150px (for 300px clock). Origin 148px.
+        mark.style.transformOrigin = "50% 148px"; 
+        mark.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+        clockFace.appendChild(mark);
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const milliseconds = now.getMilliseconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+
+        const secondsDegrees = ((seconds + (milliseconds / 1000)) / 60) * 360;
+        const minutesDegrees = ((minutes + seconds / 60) / 60) * 360;
+        const hoursDegrees = ((hours + minutes / 60) / 12) * 360;
+
+        secondHand.style.transform = `translateX(-50%) rotate(${secondsDegrees}deg)`;
+        minHand.style.transform = `translateX(-50%) rotate(${minutesDegrees}deg)`;
+        hourHand.style.transform = `translateX(-50%) rotate(${hoursDegrees}deg)`;
+
+        requestAnimationFrame(updateClock);
+    }
+
+    // Quote Cycler
+    const quotes = [
+        "Time is the most valuable thing a man can spend.",
+        "Lost time is never found again.",
+        "The two most powerful warriors are patience and time.",
+        "Time flies over us, but leaves its shadow behind.",
+        "Time is a created thing. To say 'I don't have time,' is like saying, 'I don't want to'.",
+        "Your time is limited, so don't waste it living someone else's life."
+    ];
+    
+    let quoteIndex = 0;
+    
+    function cycleQuotes() {
+        if(!quoteElement) return;
+        quoteElement.style.opacity = 0;
+        
+        setTimeout(() => {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            quoteElement.textContent = `"${quotes[quoteIndex]}"`;
+            quoteElement.style.opacity = 0.8;
+        }, 1000); // Wait for fade out
+    }
+    
+    // Change quote every 6 seconds
+    setInterval(cycleQuotes, 6000);
+
+    requestAnimationFrame(updateClock);
+}
+
+document.addEventListener('DOMContentLoaded', initClockAndQuotes);
