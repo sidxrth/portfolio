@@ -70,7 +70,7 @@ nav a:hover::after { width: 100%; }
 .reveal-holder {
     position: relative;
     display: inline-block;
-    overflow: hidden; /* Hides text until curtain moves */
+    overflow: hidden; 
     margin-bottom: 1rem;
     line-height: 1.1;
 }
@@ -78,7 +78,7 @@ nav a:hover::after { width: 100%; }
 .reveal-holder h1 {
     font-size: 4rem; font-weight: 600; letter-spacing: -1px; color: #fff; margin: 0;
     opacity: 0; 
-    animation: textAppear 0.1s forwards 0.8s; /* Text appears after curtain covers it */
+    animation: textAppear 0.1s forwards 0.8s; 
 }
 
 .curtain-reveal {
@@ -90,8 +90,8 @@ nav a:hover::after { width: 100%; }
 
 @keyframes curtainMove {
     0% { transform: translateX(-101%); }
-    50% { transform: translateX(0); } /* Fully covers text */
-    100% { transform: translateX(101%); } /* Reveals text */
+    50% { transform: translateX(0); } 
+    100% { transform: translateX(101%); } 
 }
 
 @keyframes textAppear { to { opacity: 1; } }
@@ -125,10 +125,10 @@ nav a:hover::after { width: 100%; }
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    z-index: 1; /* Sits behind the image-wrapper */
+    z-index: 1; 
     transform-style: preserve-3d;
     animation: rotateGlobe 25s linear infinite;
-    opacity: 0.25; /* Subtle B&W look */
+    opacity: 0.25; 
     pointer-events: none;
 }
 
@@ -165,7 +165,7 @@ nav a:hover::after { width: 100%; }
     box-shadow: 0 0 40px rgba(0, 122, 204, 0.4), 
                 0 0 80px rgba(0, 122, 204, 0.1);
     animation: float 6s ease-in-out infinite;
-    z-index: 2; /* Sits in front of the globe */
+    z-index: 2; 
 }
 
 /* Frame Depth Backing */
@@ -192,18 +192,30 @@ nav a:hover::after { width: 100%; }
 }
 
 
-/* --- SECTIONS & SPACING --- */
-section { padding: 12rem 10%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
-.section-title { font-size: 3rem; font-weight: 200; margin-bottom: 5rem; color: #fff; letter-spacing: 4px; position: relative; display: inline-block; }
+/* --- SECTIONS & SPACING (UPDATED) --- */
+section { 
+    padding: 6rem 10%; /* Reduced from 12rem to 6rem */
+    min-height: auto; /* Removed forced 100vh height */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    position: relative; 
+    z-index: 1; 
+}
+
+.section-title { 
+    font-size: 3rem; 
+    font-weight: 200; 
+    margin-bottom: 3rem; /* Reduced from 5rem to 3rem */
+    color: #fff; 
+    letter-spacing: 4px; 
+    position: relative; 
+    display: inline-block; 
+}
 .section-title::after { content: ''; display: block; width: 80px; height: 1px; background: #007ACC; margin: 1rem 0; }
 
-/* REDUCED GAP BETWEEN SKILLS & PROJECTS */
-#skills {
-    padding-bottom: 2rem; /* Reduced from 4rem */
-}
-#projects {
-    padding-top: 2rem; /* Reduced from 4rem */
-}
+#skills { padding-bottom: 2rem; }
+#projects { padding-top: 2rem; }
 
 /* About */
 .about-main-content { display: flex; gap: 5rem; align-items: center; }
@@ -325,10 +337,9 @@ section { padding: 12rem 10%; min-height: 100vh; display: flex; flex-direction: 
 .modal-overlay.visible { opacity: 1; pointer-events: auto; }
 .modal-content { background: #080808; border: 1px solid #007ACC; border-radius: 12px; width: 900px; max-width: 90%; max-height: 90vh; padding: 40px; overflow-y: auto; transform: translateY(50px); transition: 0.5s; }
 .modal-overlay.visible .modal-content { transform: translateY(0); }
-.neon-button { border: 1px solid #007ACC; color: #007ACC; padding: 0.8rem 2.5rem; text-decoration: none; display: inline-block; margin-top: 1.5rem; transition: 0.3s; }
+.neon-button { border: 1px solid #007ACC; color: #007ACC; padding: 0.8rem 2.5rem; text-decoration: none; display: inline-block; margin-top: 1.5rem; transition: 0.3s; background: transparent; cursor: pointer; }
 .neon-button:hover { background: #007ACC; color: #fff; }
-#gameOverlay { position: fixed; top: 0; right: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: flex; align-items: center; justify-content: center; transform: translateX(100%); transition: 0.5s; }
-#gameOverlay:not(.hidden) { transform: translateX(0); }
+
 footer { background: #080808; color: #555; text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05); }
 .modal-close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
 
@@ -381,8 +392,8 @@ footer { background: #080808; color: #555; text-align: center; padding: 2rem; bo
     max-width: 1100px;
     margin: 3rem auto 0;
     display: flex;
-    justify-content: flex-end; /* Aligned Right */
-    align-items: center;       /* Vertically Center */
+    justify-content: flex-end; 
+    align-items: center;       
     padding-right: 40px;       
 }
 
@@ -395,10 +406,9 @@ footer { background: #080808; color: #555; text-align: center; padding: 2rem; bo
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0,0,0,0.5);
     background: rgba(10, 10, 10, 0.4);
     backdrop-filter: blur(4px);
-    flex-shrink: 0; /* Prevents shrinking */
+    flex-shrink: 0; 
 }
 
-/* Time Quotes Styling (New) */
 .time-quote {
     margin-left: 30px;
     font-size: 1.1rem;
@@ -416,7 +426,7 @@ footer { background: #080808; color: #555; text-align: center; padding: 2rem; bo
 .clock-mark {
     position: absolute;
     width: 2px;
-    height: 10px; /* Longer ticks */
+    height: 10px; 
     background: rgba(255, 255, 255, 0.4);
     left: 50%;
     top: 0;
@@ -424,7 +434,7 @@ footer { background: #080808; color: #555; text-align: center; padding: 2rem; bo
 }
 
 .clock-mark.major {
-    height: 20px; /* Longer major ticks */
+    height: 20px; 
     width: 3px;
     background: rgba(255, 255, 255, 0.9);
 }
@@ -467,12 +477,13 @@ footer { background: #080808; color: #555; text-align: center; padding: 2rem; bo
     .skills-footer { 
         justify-content: center; 
         padding-right: 0; 
-        flex-direction: column; /* Stack on mobile */
+        flex-direction: column; 
         gap: 30px;
     }
     .analog-clock { width: 250px; height: 250px; } 
     .time-quote { margin-left: 0; text-align: center; border-left: none; border-top: 2px solid #007ACC; padding-top: 15px; padding-left: 0; }
 }
+
 /* --- EXPERIENCE SECTION --- */
 .experience-list {
     max-width: 1000px;
@@ -523,31 +534,176 @@ footer { background: #080808; color: #555; text-align: center; padding: 2rem; bo
     line-height: 1.6;
 }
 
-/* --- CERTIFICATES SECTION --- */
-.cert-grid {
+/* --- CERTIFICATES SECTION (Single Column) --- */
+.cert-list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column; 
+    align-items: center;    
     gap: 1.5rem;
-    max-width: 1100px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .cert-item {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem 1.5rem;
+    padding: 1.2rem 2rem;
     border-radius: 50px;
     color: #e0e0e0;
-    font-size: 0.95rem;
+    font-size: 1rem;
     letter-spacing: 0.5px;
-    transition: all 0.3s ease;
+    width: 100%;           
+    text-align: center;
+    transition: all 0.4s ease;
     cursor: default;
+    
+    /* Animation for appearing */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cert-item.hidden-cert {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .cert-item:hover {
     border-color: #007ACC;
     color: #fff;
     background: rgba(0, 122, 204, 0.1);
-    transform: translateY(-3px);
+    transform: translateX(10px); 
+}
+
+.view-more-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* --- IMPROVED GAME OVERLAY UI --- */
+#gameOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 5, 0.95); /* Darker, more immersive bg */
+    backdrop-filter: blur(15px);
+    z-index: 5000; /* Ensure it's on top of everything */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#gameOverlay:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Close Button - Top Right Fixed */
+#closeGameButton {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 5001;
+}
+
+#closeGameButton:hover {
+    background: #ff4444;
+    border-color: #ff4444;
+    transform: rotate(90deg);
+}
+
+/* Game Container - The "Stage" */
+#gameContainer {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    border: 2px solid #333;
+    border-radius: 12px;
+    background: #111;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 174, 239, 0.15);
+}
+
+canvas {
+    display: block;
+    width: 100%;
+}
+
+/* Overlays (Start & Game Over) */
+.game-status-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 10;
+}
+
+.game-status-overlay.hidden {
+    display: none !important;
+}
+
+.game-status-overlay h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0, 174, 239, 0.6);
+}
+
+.game-over-text { color: #ff4444; text-shadow: 0 0 15px rgba(255, 68, 68, 0.6) !important; }
+
+.final-score-text {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+}
+
+.icon-pulse {
+    animation: pulse 2s infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Retry Button Style */
+.retry-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 30px;
+    background: rgba(0, 174, 239, 0.1);
+}
+
+.retry-btn:hover {
+    background: #00AEEF;
+    color: #000;
+    box-shadow: 0 0 20px #00AEEF;
 }

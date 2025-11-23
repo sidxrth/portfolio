@@ -179,16 +179,28 @@ document.addEventListener('keydown', (e) => {
 
 
 // =========================================
-// 3. GAME LOGIC (OPTIMIZED & DEBUGGED)
+// 3. GAME LOGIC (IMPROVED UI & PHYSICS)
 // =========================================
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+const retryButton = document.getElementById('retryButton');
+const finalScoreSpan = document.getElementById('finalScore');
+
+// Physics Tuning (Sharper, less floaty)
+const GAME_PHYSICS = {
+    gravity: 0.85,      // Increased from 0.7 for faster fall
+    jumpPower: -14,     // Increased from -12.5 for snappy jump
+    speedStart: 6.0,    // Start slightly faster
+    speedMax: 14,
+    speedIncrement: 0.002
+};
+
+// Event Listeners for Game
 if (startButton) startButton.addEventListener('click', startGame);
-if (canvas) canvas.addEventListener('click', jump);
+if (retryButton) retryButton.addEventListener('click', startGame); // Retry button action
 if (openGameTrigger) openGameTrigger.addEventListener('click', openGameOverlay);
 if (closeGameButton) closeGameButton.addEventListener('click', closeGameOverlay);
-if (preGameOverlay) preGameOverlay.addEventListener('click', (e) => { 
-    if (!gameRunning) startGame(); 
-});
 
+// Handle Spacebar & Canvas Click
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && gameOverlay && !gameOverlay.classList.contains('hidden')) {
         e.preventDefault(); 
@@ -197,15 +209,28 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+if (canvas) {
+    canvas.addEventListener('click', (e) => {
+        // Prevent click from bubbling if clicking on an overlay button
+        if(e.target.tagName !== 'BUTTON') {
+             if (!gameRunning) startGame(); 
+             else jump();
+        }
+    });
+}
+
 function openGameOverlay() {
     if (!gameOverlay) return;
-    gameOverlay.classList.remove('hidden');
+    gameOverlay.classList.remove('hidden'); // Remove hidden class to show
     resizeCanvas();
-    if (!gameRunning && preGameOverlay && preGameOverlay.style.display !== 'flex') {
-        resetGame();
-        preGameOverlay.style.display = 'flex';
-        if(canvas) canvas.style.display = 'none';
-    }
+    
+    // Reset to "Ready" state
+    gameRunning = false;
+    if (preGameOverlay) preGameOverlay.classList.remove('hidden');
+    if (gameOverOverlay) gameOverOverlay.classList.add('hidden');
+    
+    drawGround(); // Draw static ground so it's not empty
+    drawDino(false); // Draw static dino
 }
 
 function closeGameOverlay() {
@@ -228,13 +253,13 @@ window.addEventListener('resize', resizeCanvas);
 
 function startGame() {
     if (gameRunning) return;
-    if (preGameOverlay) preGameOverlay.style.display = 'none';
-    if (canvas) canvas.style.display = 'block';
+    
+    // UI Updates
+    if (preGameOverlay) preGameOverlay.classList.add('hidden');
+    if (gameOverOverlay) gameOverOverlay.classList.add('hidden');
     
     gameRunning = true;
     resizeCanvas();
-    if (clickHereText) clickHereText.textContent = 'CLICK HERE / PRESS SPACE'; 
-    
     resetGame();
     update(); 
 }
@@ -246,15 +271,15 @@ function resetGame() {
         width: CHICKEN_SIZE, 
         height: CHICKEN_SIZE, 
         dy: 0, 
-        jumpPower: -12.5,  
-        gravity: 0.7,      
+        jumpPower: GAME_PHYSICS.jumpPower,  
+        gravity: GAME_PHYSICS.gravity,      
         isJumping: false, 
         color: '#e0e0e0' 
     };
     
     obstacles = []; 
     score = 0; 
-    gameSpeed = 5.0; 
+    gameSpeed = GAME_PHYSICS.speedStart; 
     spawnTimer = 0;  
     
     if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -344,13 +369,15 @@ function update() {
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    if (gameSpeed < 12) {
-        gameSpeed += 0.0015;
+    // Accelerate Game
+    if (gameSpeed < GAME_PHYSICS.speedMax) {
+        gameSpeed += GAME_PHYSICS.speedIncrement;
     }
     
     drawGround(); 
     drawScore();
     
+    // Physics Logic
     dino.dy += dino.gravity; 
     dino.y += dino.dy;
     
@@ -362,21 +389,25 @@ function update() {
     }
     drawDino(false);
 
+    // Spawning Logic (Randomized gaps)
     spawnTimer++;
-    let minGapFrames = 60; 
+    let minGapFrames = 60 + Math.random() * 20; 
     
-    if (spawnTimer > minGapFrames && Math.random() < 0.005 * gameSpeed) {
+    if (spawnTimer > minGapFrames && Math.random() < 0.01 * gameSpeed) {
         createObstacle();
         spawnTimer = 0; 
     }
 
+    // Obstacle Logic
     for (let i = obstacles.length - 1; i >= 0; i--) {
         let obs = obstacles[i]; 
         obs.x -= gameSpeed; 
         drawObstacle(obs);
         
-        const hitboxPaddingX = 8;
-        const hitboxPaddingY = 5;
+        // --- IMPROVED COLLISION DETECTION ---
+        // Reduced hitbox size for fairer gameplay
+        const hitboxPaddingX = 12; // More forgiving horizontal
+        const hitboxPaddingY = 10; // More forgiving vertical
         
         if (
             dino.x + hitboxPaddingX < obs.x + obs.width - hitboxPaddingX && 
@@ -401,25 +432,12 @@ function handleGameOver() {
     gameRunning = false; 
     cancelAnimationFrame(animationFrameId);
     
-    ctx.clearRect(0, 0, canvas.width, canvas.height); 
-    drawGround(); 
-    drawScore(); 
-    obstacles.forEach(drawObstacle); 
+    // Show the visual crash on canvas
     drawDino(true); 
     
-    ctx.fillStyle = '#ff4444'; 
-    ctx.font = 'bold 40px Poppins'; 
-    ctx.textAlign = 'center'; 
-    ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
-    
-    ctx.fillStyle = '#fff';
-    ctx.font = '20px Poppins';
-    ctx.fillText('Press Space to Restart', canvas.width / 2, canvas.height / 2 + 40);
-
-    if (preGameOverlay) { 
-        preGameOverlay.style.display = 'flex'; 
-        if (clickHereText) clickHereText.textContent = 'RESTART / PRESS SPACE'; 
-    }
+    // --- SHOW NEW UI OVERLAY ---
+    if (finalScoreSpan) finalScoreSpan.textContent = Math.floor(score);
+    if (gameOverOverlay) gameOverOverlay.classList.remove('hidden');
 }
 
 
@@ -547,3 +565,27 @@ function initClockAndQuotes() {
 }
 
 document.addEventListener('DOMContentLoaded', initClockAndQuotes);
+
+// =========================================
+// 7. CERTIFICATES VIEW MORE LOGIC
+// =========================================
+const viewMoreBtn = document.getElementById('viewMoreCerts');
+
+if (viewMoreBtn) {
+    viewMoreBtn.addEventListener('click', () => {
+        const hiddenCerts = document.querySelectorAll('.hidden-cert');
+        
+        hiddenCerts.forEach((cert, index) => {
+            cert.style.display = 'block';
+            
+            // Staggered fade-in animation
+            setTimeout(() => {
+                cert.style.opacity = '1';
+                cert.style.transform = 'translateY(0)';
+            }, index * 100); 
+        });
+
+        // Hide the button after expanding
+        viewMoreBtn.style.display = 'none'; 
+    });
+}

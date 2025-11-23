@@ -27,8 +27,9 @@
             <li><a href="#home">HOME</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#skills">SKILLS</a></li>
-            <li><a href="#experience">EXPERIENCE</a></li>
             <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#experience">EXPERIENCE</a></li>
+            <li><a href="#certificates">CERTIFICATES</a></li>
             <li><a href="#contact">CONTACT</a></li>
         </ul>
     </nav>
@@ -142,35 +143,6 @@
         </div>
     </section>
 
-    <section id="experience" class="blur-hidden">
-        <h2 class="section-title">EXPERIENCE</h2>
-        <div class="experience-list">
-            <div class="experience-item">
-                <div class="exp-date">06/2025 - 07/2025</div>
-                <h3 class="exp-role">AWS Cloud Intern</h3>
-                <div class="exp-company">ICT Academy | Thiruvananthapuram</div>
-                <p class="exp-desc">Deployed EC2, S3, RDS, ELB and configured VPC + IAM for secure cloud setups.</p>
-            </div>
-            <div class="experience-item">
-                <div class="exp-date">07/2024 - 08/2024</div>
-                <h3 class="exp-role">Flutter App Development Intern</h3>
-                <div class="exp-company">ICT Academy | Thiruvananthapuram</div>
-                <p class="exp-desc">Built Flutter apps with Firebase, navigation, authentication; created UI clones and an expense tracker.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="certificates" class="blur-hidden" style="padding-top: 5rem; min-height: auto;">
-        <h2 class="section-title">CERTIFICATES</h2>
-        <div class="cert-grid">
-            <div class="cert-item">Python Programming Essentials (Rice University)</div>
-            <div class="cert-item">AWS Fundamentals (ICTAK)</div>
-            <div class="cert-item">Flutter App Development (ICTAK)</div>
-            <div class="cert-item">Python Programming (UST)</div>
-            <div class="cert-item">Intro to Programming Using Python (Univ. of Leeds)</div>
-        </div>
-    </section>
-    
     <section id="projects" class="blur-hidden">
         <h2 class="section-title">PROJECTS</h2>
         <div class="projects-list">
@@ -204,6 +176,40 @@
         </div>
     </section>
 
+    <section id="experience" class="blur-hidden">
+        <h2 class="section-title">EXPERIENCE</h2>
+        <div class="experience-list">
+            <div class="experience-item">
+                <div class="exp-date">06/2025 - 07/2025</div>
+                <h3 class="exp-role">AWS Cloud Intern</h3>
+                <div class="exp-company">ICT Academy | Thiruvananthapuram</div>
+                <p class="exp-desc">Deployed EC2, S3, RDS, ELB and configured VPC + IAM for secure cloud setups.</p>
+            </div>
+            <div class="experience-item">
+                <div class="exp-date">07/2024 - 08/2024</div>
+                <h3 class="exp-role">Flutter App Development Intern</h3>
+                <div class="exp-company">ICT Academy | Thiruvananthapuram</div>
+                <p class="exp-desc">Built Flutter apps with Firebase, navigation, authentication; created UI clones and an expense tracker.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates" class="blur-hidden">
+        <h2 class="section-title">CERTIFICATES</h2>
+        <div class="cert-list">
+            <div class="cert-item">Python Programming Essentials (Rice University)</div>
+            <div class="cert-item">AWS Fundamentals (ICTAK)</div>
+            
+            <div class="cert-item hidden-cert" style="display: none;">Flutter App Development (ICTAK)</div>
+            <div class="cert-item hidden-cert" style="display: none;">Python Programming (UST)</div>
+            <div class="cert-item hidden-cert" style="display: none;">Intro to Programming Using Python (Univ. of Leeds)</div>
+        </div>
+        
+        <div class="view-more-container">
+            <button id="viewMoreCerts" class="neon-button">View More</button>
+        </div>
+    </section>
+    
     <section id="contact" class="blur-hidden">
         <h2 class="section-title">CONTACT</h2>
         <div class="contact-content">
@@ -218,15 +224,31 @@
     </section>
     
     <div id="gameOverlay" class="hidden">
-        <button id="closeGameButton" title="Close Game">X</button>
+        <button id="closeGameButton" title="Close Game">
+            <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    
         <div id="gameContainer">
             <canvas id="gameCanvas" width="1200" height="300"></canvas>
-            <div id="preGameOverlay">
-                <div class="chicken-icon-placeholder"></div> 
-                <button id="startGameButton" title="Start Game">
-                    <svg viewBox="0 0 24 24" fill="#000" width="30" height="30"><path d="M6 3l12 9-12 9V3z"/></svg>
+            
+            <div id="preGameOverlay" class="game-status-overlay">
+                <div class="icon-pulse">
+                    <svg viewBox="0 0 24 24" fill="#00AEEF" width="60" height="60"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <h2>READY TO RUN?</h2>
+                <p>Press Space or Click to Start</p>
+            </div>
+    
+            <div id="gameOverOverlay" class="game-status-overlay hidden">
+                <h2 class="game-over-text">GAME OVER</h2>
+                <p class="final-score-text">Score: <span id="finalScore">0</span></p>
+                <button id="retryButton" class="neon-button retry-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                    TRY AGAIN
                 </button>
-                <p id="clickHereText">CLICK HERE / PRESS SPACE</p>
             </div>
         </div>
     </div>
