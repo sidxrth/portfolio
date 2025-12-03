@@ -35,24 +35,21 @@
     </nav>
 
     <section id="home" class="hero">
+        <canvas id="constellationCanvas"></canvas>
         <div class="hero-bg-glow"></div>
         <div class="hero-container">
             <div class="hero-text-content">
                 <div class="badge fade-in-up">Available for Hire</div>
-                
                 <div class="reveal-holder">
                     <h1>Hello, I'm <span class="highlight-name">G S Sidhardh</span></h1>
                     <div class="curtain-reveal"></div>
                 </div>
-                
                 <h2 class="dynamic-role fade-in-up delay-1">I am a <span class="typing-text">Software Engineer</span><span class="cursor">|</span></h2>
-                
                 <p class="hero-description fade-in-up delay-2">
                     Full-stack developer skilled in Flutter, Node.js, Firebase, and AWS. 
                     I build scalable cloud architectures and production-ready systems, 
                     including AI-integrated platforms.
                 </p>
-                
                 <div class="hero-stats fade-in-up delay-3">
                     <div class="stat-item">
                         <span class="stat-number">3+</span>
@@ -83,12 +80,12 @@
     </section>
 
     <section id="about" class="blur-hidden">
+        <canvas id="aboutCanvas"></canvas>
         <h2 class="section-title">ABOUT</h2>
         <div class="about-main-content">
             <div class="about-text-container">
                 <p>I am a Computer Science & Engineering student at <strong>Marian Engineering College</strong> (2022-Present), specializing in full-stack development and cloud computing.</p>
                 <p>My expertise lies in building secure, scalable systems using AWS and Node.js, as well as creating cross-platform mobile experiences with Flutter. I have a strong focus on system design and AI integration.</p>
-                
                 <div id="openGameTrigger" class="game-trigger">
                     <p>CLICK HERE</p>
                     <svg viewBox="0 0 24 24" width="24" height="24" fill="#00AEEF">
@@ -103,6 +100,7 @@
     </section>
 
     <section id="skills" class="blur-hidden">
+        <canvas id="skillsCanvas"></canvas>
         <h2 class="section-title">SKILLS</h2>
         <div class="skills-container">
             <div class="skill-item">
@@ -130,7 +128,6 @@
                 <div class="skill-name">TOOLS (VS Code, GitHub)</div>
             </div>
         </div>
-        
         <div class="skills-footer">
             <div class="analog-clock" id="analogClock">
                 <div class="clock-face" id="clockFace"></div>
@@ -144,6 +141,7 @@
     </section>
 
     <section id="projects" class="blur-hidden">
+        <canvas id="projectsCanvas"></canvas>
         <h2 class="section-title">PROJECTS</h2>
         <div class="projects-list">
             <div class="project-item tilt-card" data-project-id="1">
@@ -177,6 +175,7 @@
     </section>
 
     <section id="experience" class="blur-hidden">
+        <canvas id="experienceCanvas"></canvas>
         <h2 class="section-title">EXPERIENCE</h2>
         <div class="experience-list">
             <div class="experience-item">
@@ -196,15 +195,14 @@
 
     <section id="certificates" class="blur-hidden">
         <h2 class="section-title">CERTIFICATES</h2>
+        <canvas id="certificatesCanvas"></canvas>
         <div class="cert-list">
             <div class="cert-item">Python Programming Essentials (Rice University)</div>
             <div class="cert-item">AWS Fundamentals (ICTAK)</div>
-            
             <div class="cert-item hidden-cert" style="display: none;">Flutter App Development (ICTAK)</div>
             <div class="cert-item hidden-cert" style="display: none;">Python Programming (UST)</div>
             <div class="cert-item hidden-cert" style="display: none;">Intro to Programming Using Python (Univ. of Leeds)</div>
         </div>
-        
         <div class="view-more-container">
             <button id="viewMoreCerts" class="neon-button">View More</button>
         </div>
@@ -219,10 +217,29 @@
                 <a href="https://linkedin.com/in/sidhardh14/" target="_blank" class="contact-link">LINKEDIN</a>
                 <a href="https://github.com/sidxrth" target="_blank" class="contact-link">GITHUB</a>
             </div>
-            <p style="margin-top: 1rem; color: #888;">+91 8078101140 | Thiruvananthapuram, Kerala</p>
+            <p style="margin-top: 1rem; color: #888;">| Thiruvananthapuram, Kerala</p>
         </div>
     </section>
     
+    <div id="lampPopup" class="lamp-popup hidden">
+        <div class="lamp-icon-container">
+            <svg class="lamp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21h6m-3-3v3m-7-5h14l-1-7H6l-1 7zm1-7V4a4 4 0 0 1 4-4 4 4 0 0 1 4 4v5"></path>
+            </svg>
+            <div class="lamp-glow"></div>
+        </div>
+        <div class="lamp-content">
+            <p class="lamp-text">It's a bit dark here...</p>
+            <p class="lamp-subtext">Should I turn on the lights?</p>
+            <div class="lamp-actions">
+                <button id="lampYes" class="lamp-btn yes-btn">YES, PLEASE</button>
+                <button id="lampNo" class="lamp-btn no-btn">NO, THANKS</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="transitionOverlay" class="hidden"></div>
+
     <div id="gameOverlay" class="hidden">
         <button id="closeGameButton" title="Close Game">
             <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2" fill="none">
@@ -230,10 +247,8 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-    
         <div id="gameContainer">
             <canvas id="gameCanvas" width="1200" height="300"></canvas>
-            
             <div id="preGameOverlay" class="game-status-overlay">
                 <div class="icon-pulse">
                     <svg viewBox="0 0 24 24" fill="#00AEEF" width="60" height="60"><path d="M8 5v14l11-7z"/></svg>
@@ -241,7 +256,6 @@
                 <h2>READY TO RUN?</h2>
                 <p>Press Space or Click to Start</p>
             </div>
-    
             <div id="gameOverOverlay" class="game-status-overlay hidden">
                 <h2 class="game-over-text">GAME OVER</h2>
                 <p class="final-score-text">Score: <span id="finalScore">0</span></p>
@@ -276,6 +290,6 @@
         <p>© 2025 G S Sidhardh. ALL RIGHTS RESERVED.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

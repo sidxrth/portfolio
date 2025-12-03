@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Lamp Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            transition: background 1.2s ease-out 3s;
+        }
+
+        body.lit {
+            background: radial-gradient(ellipse at center top, #1a1510 0%, #000000 60%);
+        }
+
+        .lamp-system {
+            position: absolute;
+            top: -500px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: dropLamp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes dropLamp {
+            0% {
+                top: -500px;
+            }
+            60% {
+                top: 50px;
+            }
+            75% {
+                top: 35px;
+            }
+            87% {
+                top: 45px;
+            }
+            95% {
+                top: 38px;
+            }
+            100% {
+                top: 40px;
+            }
+        }
+
+        .ceiling-mount {
+            width: 80px;
+            height: 12px;
+            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+            margin: 0 auto;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .ceiling-mount::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 8px;
+            background: #0a0a0a;
+            border-radius: 4px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .wire {
+            width: 3px;
+            height: 180px;
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #0f0f0f 100%);
+            margin: 0 auto;
+            position: relative;
+            transform-origin: top center;
+            animation: swingWire 3s ease-in-out 2s infinite;
+            box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes swingWire {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            15% {
+                transform: rotate(15deg);
+            }
+            35% {
+                transform: rotate(-12deg);
+            }
+            55% {
+                transform: rotate(8deg);
+            }
+            75% {
+                transform: rotate(-4deg);
+            }
+            90% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .lamp-fixture {
+            width: 180px;
+            position: relative;
+            transform-origin: top center;
+            animation: swingFixture 3s ease-in-out 2s infinite;
+        }
+
+        @keyframes swingFixture {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            15% {
+                transform: rotate(15deg);
+            }
+            35% {
+                transform: rotate(-12deg);
+            }
+            55% {
+                transform: rotate(8deg);
+            }
+            75% {
+                transform: rotate(-4deg);
+            }
+            90% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .socket {
+            width: 45px;
+            height: 30px;
+            background: linear-gradient(180deg, #3a3a3a, #1a1a1a);
+            margin: 0 auto;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.6),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .socket::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: #0a0a0a;
+            border-radius: 2px;
+        }
+
+        .socket::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: #0a0a0a;
+            border-radius: 2px;
+        }
+
+        .bulb-container {
+            position: relative;
+            width: 180px;
+            height: 140px;
+        }
+
+        .bulb {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 55px;
+            height: 75px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 1;
+            animation: bulbTurnOn 0.4s ease-out 3s forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bulb::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 12px;
+            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+            border-radius: 3px;
+        }
+
+        @keyframes bulbTurnOn {
+            0% {
+                background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+                box-shadow: none;
+            }
+            30% {
+                background: linear-gradient(180deg, #fff9e0 0%, #ffe680 100%);
+                box-shadow: 
+                    0 0 30px 10px rgba(255, 230, 128, 0.6),
+                    0 0 60px 20px rgba(255, 230, 128, 0.4);
+            }
+            100% {
+                background: linear-gradient(180deg, #fffef8 0%, #fff4d0 100%);
+                box-shadow: 
+                    0 0 40px 15px rgba(255, 244, 208, 0.8),
+                    0 0 80px 30px rgba(255, 244, 208, 0.6),
+                    0 0 120px 45px rgba(255, 244, 208, 0.4);
+            }
+        }
+
+        .shade {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 120px;
+            background: 
+                linear-gradient(180deg, 
+                    rgba(40, 40, 40, 0.95) 0%, 
+                    rgba(35, 35, 35, 0.90) 40%,
+                    rgba(30, 30, 30, 0.85) 100%);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+            position: relative;
+            box-shadow: 
+                inset 0 -20px 30px rgba(0, 0, 0, 0.4),
+                0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .shade::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 20%;
+            width: 25%;
+            height: 30%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            filter: blur(3px);
+            border-radius: 50%;
+        }
+
+        .shade-inner-glow {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 60%;
+            background: radial-gradient(ellipse at center, rgba(255, 244, 208, 0) 0%, transparent 100%);
+            opacity: 0;
+            filter: blur(20px);
+            animation: shadeGlow 0.8s ease-out 3s forwards;
+        }
+
+        @keyframes shadeGlow {
+            to {
+                opacity: 1;
+                background: radial-gradient(ellipse at center, rgba(255, 244, 208, 0.7) 0%, rgba(255, 244, 208, 0.3) 50%, transparent 80%);
+            }
+        }
+
+        .light-cone {
+            position: absolute;
+            top: 260px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 0 solid transparent;
+            border-right: 0 solid transparent;
+            border-top: 0 solid rgba(255, 244, 208, 0);
+            opacity: 0;
+            animation: coneExpand 1s ease-out 3s forwards;
+            filter: blur(25px);
+            z-index: 1;
+        }
+
+        @keyframes coneExpand {
+            0% {
+                opacity: 0;
+                border-left-width: 0;
+                border-right-width: 0;
+                border-top-width: 0;
+            }
+            100% {
+                opacity: 1;
+                border-left-width: 280px;
+                border-right-width: 280px;
+                border-top-width: 450px;
+                border-top-color: rgba(255, 244, 208, 0.18);
+            }
+        }
+
+        .ground-light {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(255, 244, 208, 0) 0%, transparent 100%);
+            opacity: 0;
+            filter: blur(30px);
+            animation: groundLightGrow 1.2s ease-out 3.1s forwards;
+        }
+
+        @keyframes groundLightGrow {
+            0% {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            100% {
+                opacity: 1;
+                width: 700px;
+                height: 200px;
+                background: radial-gradient(ellipse, rgba(255, 244, 208, 0.35) 0%, rgba(255, 244, 208, 0.15) 40%, transparent 70%);
+            }
+        }
+
+        .ambient-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 244, 208, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="ground-light"></div>
+    <div class="light-cone"></div>
+    <div class="ambient-particles" id="particles"></div>
+    
+    <div class="lamp-system">
+        <div class="ceiling-mount"></div>
+        <div class="wire"></div>
+        <div class="lamp-fixture">
+            <div class="socket"></div>
+            <div class="bulb-container">
+                <div class="shade">
+                    <div class="shade-inner-glow"></div>
+                </div>
+                <div class="bulb"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.body.classList.add('lit');
+            
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 400;
+                    const startY = 300 + Math.random() * 200;
+                    
+                    particle.style.left = startX + 'px';
+                    particle.style.top = startY + 'px';
+                    
+                    particlesContainer.appendChild(particle);
+                    
+                    const duration = 2000 + Math.random() * 2000;
+                    const delay = Math.random() * 1000;
+                    const endY = startY + 100 + Math.random() * 200;
+                    const endX = startX + (Math.random() - 0.5) * 100;
+                    
+                    setTimeout(() => {
+                        particle.style.transition = `all ${duration}ms ease-out`;
+                        particle.style.opacity = '1';
+                        
+                        setTimeout(() => {
+                            particle.style.top = endY + 'px';
+                            particle.style.left = endX + 'px';
+                            particle.style.opacity = '0';
+                        }, 50);
+                        
+                        setTimeout(() => {
+                            particle.remove();
+                        }, duration + 100);
+                    }, delay);
+                }, i * 80);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
