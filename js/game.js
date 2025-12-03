@@ -73,9 +73,15 @@ if (closeGameButton) closeGameButton.addEventListener('click', closeGameOverlay)
 // Handle Input (Keyboard & Touch)
 function handleInput(e) {
     if (gameOverlay && !gameOverlay.classList.contains('hidden')) {
-        if (e.type === 'touchstart' || e.code === 'Space') {
+        // FIXED: Prevent default scrolling behavior when Space is pressed
+        if (e.code === 'Space') {
+             e.preventDefault(); 
+        }
+        // Optional: Prevent default on touch if needed
+        if (e.type === 'touchstart') {
              // e.preventDefault(); 
         }
+        
         if (!gameRunning) startGame(); 
         else jump();
     }
